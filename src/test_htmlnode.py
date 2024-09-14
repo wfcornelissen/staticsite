@@ -1,5 +1,5 @@
 import unittest
-from htmlnode import HTMLNode
+from htmlnode import HTMLNode, LeafNode
 #An HTMLNode without a tag will just render as raw text
 #An HTMLNode without a value will be assumed to have children
 #An HTMLNode without children will be assumed to have a value
@@ -24,6 +24,14 @@ class TestHTMLNode(unittest.TestCase):
         self.assertEqual(node.props_to_html()," href=https://boot.dev")
         
         
+class TestLeafNode(unittest.TestCase):
+    def test_to_html(self):
+        node = LeafNode("h1", "This is the test string",None)
+        self.assertEqual(node.to_html(), "<h1>This is the test string</h1>")
+    
+    def test_to_html_with_prop(self):
+        node = LeafNode("h1", "This is the test string", {"href":"https://boot.dev"})
+        self.assertEqual(node.to_html(), "<h1 href=https://boot.dev>This is the test string</h1>")
 
 if __name__ == "__main__":
     unittest.main()
