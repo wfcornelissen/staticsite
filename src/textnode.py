@@ -15,6 +15,7 @@ class TextNode:
             )
     
     #text, bold, italic, code, link, image
+
 def text_node_to_html_node(text_node):
     
     class TextType(Enum):
@@ -39,8 +40,7 @@ def text_node_to_html_node(text_node):
         case (TextType.image.value):
             return LeafNode("img",text_node.text,text_node.url).to_html()
         case _:
-            raise Exception("No text type given")
-        
+            raise Exception("No text type given")      
 
 def __repr__(self):
     return f"TextNode({self.text}, {self.text_type}, {self.url})"
