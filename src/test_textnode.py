@@ -1,6 +1,6 @@
 import unittest
 
-from textnode import TextNode,text_node_to_html_node
+from textnode import *
 
 
 class TestTextNode(unittest.TestCase):
@@ -69,16 +69,6 @@ class TestTextNode(unittest.TestCase):
         self.assertEqual(text_node_to_html_node(nodecode), "<code>This is a text node</code>")
         self.assertEqual(text_node_to_html_node(nodelink), "<a href=https://boot.dev>This is a text node</a>")
         self.assertEqual(text_node_to_html_node(nodeimage), "<img href=https://boot.dev>This is a text node</img>")
-
-
-
-
-
-
-
-
-
-
 
 if __name__ == "__main__":
     unittest.main()

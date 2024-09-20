@@ -1,5 +1,5 @@
 import unittest
-from htmlnode import HTMLNode, LeafNode, ParentNode
+from htmlnode import *
 #An HTMLNode without a tag will just render as raw text
 #An HTMLNode without a value will be assumed to have children
 #An HTMLNode without children will be assumed to have a value

@@ -1,5 +1,5 @@
 from enum import Enum
-from htmlnode import LeafNode, HTMLNode
+from htmlnode import *
 
 class TextNode:
     def __init__(self, text, text_type, url=None):
@@ -14,6 +14,10 @@ class TextNode:
             and self.url == other.url
             )
     
+    def __repr__(self):
+        if self.url is None:
+            return f"TextNode({self.text}, {self.text_type})"
+        return f"TextNode({self.text}, {self.text_type}, {self.url})"
     #text, bold, italic, code, link, image
 
 def text_node_to_html_node(text_node):
