@@ -107,9 +107,88 @@ class TestExtractMarkdown(unittest.TestCase):
             ],
             matches,
         )
+class TestSplitNodes(unittest.TestCase):
+    def test_split_nodes_image(self):
+        old_nodes = [TextNode("This is an ![image](https://www.boot.dev)", TextType.TEXT)]
+        new_nodes = split_nodes_image(old_nodes)
+        expected = [
+            TextNode("This is an ", TextType.TEXT),
+            TextNode("image", TextType.IMAGE, "https://www.boot.dev"),
+        ]
+        self.assertEqual(new_nodes, expected)
 
+        old_nodes = [TextNode("Multiple images ![first](https://first.url) and ![second](https://second.url).", TextType.TEXT)]
+        new_nodes = split_nodes_image(old_nodes)
+        expected = [
+            TextNode("Multiple images ", TextType.TEXT),
+            TextNode("first", TextType.IMAGE, "https://first.url"),
+            TextNode(" and ", TextType.TEXT),
+            TextNode("second", TextType.IMAGE, "https://second.url"),
+            TextNode(".", TextType.TEXT),
+        ]
+        self.assertEqual(new_nodes, expected)
 
+    def test_split_nodes_link(self):
+        old_nodes = [TextNode("This is a [link](https://www.boot.dev)", TextType.TEXT)]
+        new_nodes = split_nodes_link(old_nodes)
+        expected = [
+            TextNode("This is a ", TextType.TEXT),
+            TextNode("link", TextType.LINK, "https://www.boot.dev"),
+        ]
+        self.assertEqual(new_nodes, expected)
 
+        old_nodes = [TextNode("Multiple links [first](https://first.url) and [second](https://second.url).", TextType.TEXT)]
+        new_nodes = split_nodes_link(old_nodes)
+        expected = [
+            TextNode("Multiple links ", TextType.TEXT),
+            TextNode("first", TextType.LINK, "https://first.url"),
+            TextNode(" and ", TextType.TEXT),
+            TextNode("second", TextType.LINK, "https://second.url"),
+            TextNode(".", TextType.TEXT),
+        ]
+        self.assertEqual(new_nodes, expected)
 
-if __name__ == "__main__":
-    unittest.main()
+class TestTextToTextNodes(unittest.TestCase):
+    def test_text_to_textnodes(self):
+        text = "This is **text** with an *italic* word and a `code block` and an ![obi wan image](https://i.imgur.com/fJRm4Vk.jpeg) and a [link](https://boot.dev)"
+        expected = [
+            TextNode("This is ", TextType.TEXT),
+            TextNode("text", TextType.BOLD),
+            TextNode(" with an ", TextType.TEXT),
+            TextNode("italic", TextType.ITALIC),
+            TextNode(" word and a ", TextType.TEXT),
+            TextNode("code block", TextType.CODE),
+            TextNode(" and an ", TextType.TEXT),
+            TextNode("obi wan image", TextType.IMAGE, "https://i.imgur.com/fJRm4Vk.jpeg"),
+            TextNode(" and a ", TextType.TEXT),
+            TextNode("link", TextType.LINK, "https://boot.dev"),
+        ]
+        result = text_to_textnodes(text)
+        self.assertEqual(result, expected)
+
+    def test_text_to_textnodes_no_markdown(self):
+        text = "This is plain text with no markdown."
+        expected = [TextNode(text, TextType.TEXT)]
+        result = text_to_textnodes(text)
+        self.assertEqual(result, expected)
+
+    def test_text_to_textnodes_only_images(self):
+        text = "Here is an image ![alt text](https://www.boot.dev)"
+        expected = [
+            TextNode("Here is an image ", TextType.TEXT),
+            TextNode("alt text", TextType.IMAGE, "https://www.boot.dev"),
+        ]
+        result = text_to_textnodes(text)
+        self.assertEqual(result, expected)
+
+    def test_text_to_textnodes_only_links(self):
+        text = "Here is a link [link text](https://www.boot.dev)"
+        expected = [
+            TextNode("Here is a link ", TextType.TEXT),
+            TextNode("link text", TextType.LINK, "https://www.boot.dev"),
+        ]
+        result = text_to_textnodes(text)
+        self.assertEqual(result, expected)
+
+    if __name__ == "__main__":
+        unittest.main()
