@@ -1,5 +1,5 @@
 import unittest
-from textnode import *
+from src.textnode import *
 
 print("Executing tests")
 
