@@ -21,7 +21,6 @@ def split_nodes_delimiter(old_nodes, delimiter, text_type):
     for node in old_nodes:
         #check for non-text types and append them to new list
         if node.text_type is not TextType.TEXT:
-            print("Fokweet")
             new_nodes.append(node)
             continue
         #Iterate through characters to check for uneven delimiters
