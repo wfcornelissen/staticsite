@@ -1,7 +1,7 @@
 import os
 from extract_markdown import *
 from blocks import *
-import shutil
+
 
 def generate_page(from_path, template_path, dest_path, basepath="/"):
     print(f"Generating page from {from_path} to {dest_path} using template {template_path}")
@@ -15,8 +15,8 @@ def generate_page(from_path, template_path, dest_path, basepath="/"):
     extracted_title = extract_markdown_headers(contents)
     template = template.replace("{{ Title }}", extracted_title)
     template = template.replace("{{ Content }}", html)
-    template = template.replace("href=\"/", f"href=\"{basepath}")
-    template = template.replace("src=\"/", f"src=\"{basepath}")
+    print(basepath)
+    template = template.replace("{{ basepath }}", basepath)
 
     try:
         open(dest_path, "w").write(template)
