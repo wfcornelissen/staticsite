@@ -7,12 +7,12 @@ import re
 #r"(?<!!)\[([^\[\]]*)\]\(([^\(\)]*)\)"
 
 def extract_markdown_images(text):
-    pattern = r"!\[([^\[\]]*)\]\(([^\(\)]*)\)"
+    pattern = "!\[([^\[\]]*)\]\(([^\(\)]*)\)"
     matches = re.findall(pattern, text)
     return matches
 
 
 def extract_markdown_links(text):
-    pattern = r"(?<!!)\[([^\[\]]*)\]\(([^\(\)]*)\)"
+    pattern = "(?<!!)\[([^\[\]]*)\]\(([^\(\)]*)\)"
     matches = re.findall(pattern, text)
     return matches

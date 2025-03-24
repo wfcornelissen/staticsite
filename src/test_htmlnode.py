@@ -109,7 +109,7 @@ class TestParentNode(unittest.TestCase):
 
 class TestTextNodeToHTML(unittest.TestCase):
     def test_text_node_to_html(self):
-        text_node = TextNode("Hello, world!", TextType.NORMAL)
+        text_node = TextNode("Hello, world!", TextType.TEXT)
         self.assertEqual(text_node_to_html(text_node), "Hello, world!")
 
     def test_bold_text_node_to_html(self):
@@ -129,7 +129,7 @@ class TestTextNodeToHTML(unittest.TestCase):
         self.assertEqual(text_node_to_html(text_node), "<a href=\"https://boot.dev\">Hello, world!</a>")
 
     def test_image_text_node_to_html(self):
-        text_node = TextNode("Hello, world!", TextType.IMAGES, "https://boot.dev")
+        text_node = TextNode("Hello, world!", TextType.IMAGE, "https://boot.dev")
         self.assertEqual(text_node_to_html(text_node), "<img src=\"https://boot.dev\" alt=\"Hello, world!\" />")
 
 if __name__ == "__main__":

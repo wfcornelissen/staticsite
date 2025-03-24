@@ -1,6 +1,7 @@
 from textnode import *
-
+from extract_markdown import *
 def main():
-    newNode = TextNode("This is a text node", TextType.BOLD, "https://www.boot.dev")
-    print(newNode)
+    link_text = "This is text with a link [to boot.dev](https://www.boot.dev) and [to youtube](https://www.youtube.com/@bootdotdev)"
+    link_nodes = extract_markdown_links(link_text)
+    print(link_nodes)
 main()
