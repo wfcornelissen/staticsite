@@ -27,14 +27,14 @@ def generate_page(from_path, template_path, dest_path):
 def generate_pages_recursive(src=None):
     if src == None:
         src = "content"
-    dest = "public"
+    dest = "docs"
+    if not os.path.exists(dest):
+        os.makedirs(dest)
     template = "template.html"
 
     for dir in os.listdir(src):
         if os.path.isfile(src + "/" + dir):
-            print(f"File: {src + '/' + dir}")
-            generate_page(src + "/" + dir, template, src.replace("content", "public") + "/" + dir.replace(".md", ".html"))
+            generate_page(src + "/" + dir, template, src.replace("content", dest) + "/" + dir.replace(".md", ".html"))
         else:
-            print(f"Dir: {dir}")
             generate_pages_recursive(src + "/" + dir)
             
