@@ -5,8 +5,11 @@ from generate import *
 import sys
 
 def main():
+    basepath = "/"
+    if len(sys.argv) > 1:
+        basepath = sys.argv[1]
     explore_src("static", "docs", [])
-    generate_pages_recursive()
+    generate_pages_recursive(basepath=basepath)
     
 
 
