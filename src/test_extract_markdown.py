@@ -28,5 +28,10 @@ class TestExtractMarkdown(unittest.TestCase):
             ("alt text", "https://www.boot.dev/image.png")
         ])
 
+    def test_extract_markdown_headers(self):
+        text = "# Header 1\n## Header 2"
+        headers = extract_markdown_headers(text)
+        self.assertEqual(headers, "Header 1")
+
 if __name__ == "__main__":
     unittest.main()
