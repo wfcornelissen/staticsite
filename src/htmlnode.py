@@ -1,4 +1,4 @@
-
+from textnode import TextType
 
 class HTMLNode():
     def __init__(self, tag=None, value=None, children=None, props=None):
@@ -52,3 +52,17 @@ class ParentNode(HTMLNode):
     
     def __repr__(self):
         return f"ParentNode({self.tag}, children: {self.children}, {self.props})"
+    
+def text_node_to_html(text_node):
+    if text_node.text_type == TextType.NORMAL:
+        return text_node.text
+    elif text_node.text_type == TextType.BOLD:
+        return f"<b>{text_node.text}</b>"
+    elif text_node.text_type == TextType.ITALIC:
+        return f"<i>{text_node.text}</i>"
+    elif text_node.text_type == TextType.CODE:
+        return f"<code>{text_node.text}</code>"
+    elif text_node.text_type == TextType.LINKS:
+        return f"<a href=\"{text_node.url}\">{text_node.text}</a>"
+    elif text_node.text_type == TextType.IMAGES:
+        return f"<img src=\"{text_node.url}\" alt=\"{text_node.text}\" />"
