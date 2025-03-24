@@ -3,7 +3,7 @@ from extract_markdown import *
 from blocks import *
 import shutil
 
-def generate_page(from_path, template_path, dest_path, basepath):
+def generate_page(from_path, template_path, dest_path, basepath="/"):
     print(f"Generating page from {from_path} to {dest_path} using template {template_path}")
     if os.path.exists(dest_path):
         os.remove(dest_path)
