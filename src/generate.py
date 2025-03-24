@@ -1,7 +1,7 @@
 import os
 from extract_markdown import *
 from blocks import *
-
+import re
 
 def generate_page(from_path, template_path, dest_path, basepath="/"):
     print(f"Generating page from {from_path} to {dest_path} using template {template_path}")
@@ -16,6 +16,8 @@ def generate_page(from_path, template_path, dest_path, basepath="/"):
     template = template.replace("{{ Title }}", extracted_title)
     template = template.replace("{{ Content }}", html)
     print(basepath)
+    template = re.sub(r'href="/', f'href="{basepath}', template)
+    template = re.sub(r'src="/', f'src="{basepath}', template)
     template = template.replace("{{ basepath }}", basepath)
 
     try:
