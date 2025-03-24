@@ -15,6 +15,8 @@ def generate_page(from_path, template_path, dest_path):
     extracted_title = extract_markdown_headers(contents)
     template = template.replace("{{ Title }}", extracted_title)
     template = template.replace("{{ Content }}", html)
+    template = template.replace("href=\"", from_path)
+    template = template.replace("src=\"", from_path)
 
     try:
         open(dest_path, "w").write(template)
